@@ -1,7 +1,6 @@
-# vue-demo
-
-[TOC]
-
+- [自定义指令](#自定义指令)
+  - [自动获取焦点](#自动获取焦点)
+- [mixins](#mixins)
 ## 自定义指令
 
 ### 自动获取焦点
@@ -65,10 +64,10 @@ Vue.directive('permission', {
   }
 })
 <div id="app">
-  <button v-permission=“‘admin’”>
+  <button v-permission="'admin'">
     提交
   </button>
-   <button v-permission=“‘user’”>
+   <button v-permission="'user'">
     提交
   </button>
 </div>
