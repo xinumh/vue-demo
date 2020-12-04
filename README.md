@@ -1,9 +1,12 @@
 # vue-demo
+
+[TOC]
+
 ## 自定义指令
 
 ### 自动获取焦点
 
-``` js
+```js
 Vue.directive('focus', {
   inserted(el, binding) {
   	el.focus()
@@ -14,9 +17,6 @@ new Vue({
   el: '#app',
   data: {}
 })
-```
-
-``` html
 <div id="app">
   // 自动获取焦点
   <input v-focus />
@@ -25,23 +25,31 @@ new Vue({
 
 指令定义对象提供几个钩子函数：
 
-- `bind`  只调用一次，第一次绑定到元素时调用
-- `inserted`  插入父节点时调用
-- `update`  所在组件`vnode`更新时调用
+- `bind` 只调用一次，第一次绑定到元素时调用
+- `inserted` 插入父节点时调用
+- `update` 所在组件`vnode`更新时调用
 - `componentUpdated`
 - `unbind`
 
 钩子函数参数：
 
 - `el`：所绑定的元素
-- `binding`：对象
+
+- ```
+  binding
+  ```
+
+  ：对象
+
   - `name`：指令名
   - `value`：指令绑定值
   - `oldValue`：更新前的值； 仅`update`、`componentUpdated`可用
   - `expression`：
   - `arg`
   - modifiers
+
 - `vnode`
+
 - `oldVnode` 仅`update`、`componentUpdated`可用
 
 ### 按钮权限
@@ -56,9 +64,6 @@ Vue.directive('permission', {
     }
   }
 })
-```
-
-```html
 <div id="app">
   <button v-permission=“‘admin’”>
     提交
@@ -68,8 +73,6 @@ Vue.directive('permission', {
   </button>
 </div>
 ```
-
-
 
 ## mixins
 
@@ -87,9 +90,6 @@ var vm = new Vue({
 })
 // => 1
 // => 2
-```
-
-```js
 // 可复用功能
 var myMixin = {
   data(){
@@ -120,4 +120,3 @@ new Vue({
   mixins: [myMixin]
 })
 ```
-
