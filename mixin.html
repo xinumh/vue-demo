@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mixin</title>
+  <script src="./js/vue.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // 可复用功能
+    var myMixin = {
+      data(){
+        return {
+          msg2: 'msg2'
+        }
+      },
+      created() {
+        this.say(this.msg)
+      },
+      methods: {
+        say(msg){
+          console.log(`hello from mixin!${msg}`)
+        }
+      },
+    }
+    new Vue({
+      el: '#app',
+      data: {
+        msg: 'msg1'
+      },
+      mounted() {
+        console.log('msg2', this.msg2)
+      },
+      created() {
+        // 同样的生命周期，
+        this.say(this.msg2)
+      },
+      mixins: [myMixin]
+    })
+  </script>
+</body>
+</html>
