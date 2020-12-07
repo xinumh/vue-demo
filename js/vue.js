@@ -197,6 +197,7 @@
 
   /**
    * Hyphenate a camelCase string.
+   * 为camelCase字符串断字，aBc => a-bc
    */
   var hyphenateRE = /\B([A-Z])/g;
   var hyphenate = cached(function (str) {
@@ -209,6 +210,7 @@
    * since native bind is now performant enough in most browsers.
    * But removing it would mean breaking code that was able to run in
    * PhantomJS 1.x, so this must be kept for backward compatibility.
+   * 简单 bind 的 polyfill，适用于不支持它的环境
    */
 
   /* istanbul ignore next */
@@ -236,6 +238,7 @@
 
   /**
    * Convert an Array-like object to a real Array.
+   * 类数组转真数组
    */
   function toArray (list, start) {
     start = start || 0;
@@ -249,6 +252,7 @@
 
   /**
    * Mix properties into target object.
+   * 将属性混合到目标对象中
    */
   function extend (to, _from) {
     for (var key in _from) {
@@ -259,6 +263,7 @@
 
   /**
    * Merge an Array of Objects into a single Object.
+   * 将一组对象合并为一个对象
    */
   function toObject (arr) {
     var res = {};
@@ -273,7 +278,8 @@
   /* eslint-disable no-unused-vars */
 
   /**
-   * Perform no operation.
+   * Perform no operation. 
+   * 不执行任何操作
    * Stubbing args to make Flow happy without leaving useless transpiled code
    * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
    */
@@ -281,6 +287,7 @@
 
   /**
    * Always return false.
+   * 始终返回false
    */
   var no = function (a, b, c) { return false; };
 
@@ -288,11 +295,13 @@
 
   /**
    * Return the same value.
+   * 返回自己
    */
   var identity = function (_) { return _; };
 
   /**
    * Generate a string containing static keys from compiler modules.
+   * 从编译器模块生成包含静态键的字符串
    */
   function genStaticKeys (modules) {
     return modules.reduce(function (keys, m) {
@@ -302,7 +311,9 @@
 
   /**
    * Check if two values are loosely equal - that is,
+   * 比较两个值是否大致相等
    * if they are plain objects, do they have the same shape?
+   * 结构是否相似
    */
   function looseEqual (a, b) {
     if (a === b) { return true }
@@ -343,6 +354,7 @@
    * Return the first index at which a loosely equal value can be
    * found in the array (if value is a plain object, the array must
    * contain an object of the same shape), or -1 if it is not present.
+   * 返回在数组中找到一个大致相等的值的第一个索引（如果值是普通对象，则数组必须包含一个形状相同的对象），如果不存在，则返回-1
    */
   function looseIndexOf (arr, val) {
     for (var i = 0; i < arr.length; i++) {
@@ -352,7 +364,8 @@
   }
 
   /**
-   * Ensure a function is called only once.
+   * Ensure a function is called only once.、
+   * 确保函数只被调用一次
    */
   function once (fn) {
     var called = false;

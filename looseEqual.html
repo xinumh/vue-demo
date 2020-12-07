@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>looseEqual</title>
+</head>
+<body>
+  <script>
+    function isObject (obj) {
+      return obj !== null && typeof obj === 'object'
+    }
+    function looseEqual (a, b) {
+      // 基础类型
+      if ( a === b ) { return true }
+      var isObjectA = isObject(a)
+      var isObjectB = isObject(b)
+      if (isObjectA && isObjectB) {
+        // 对象
+
+        try {
+          var isArrayA = Array.isArray(a);
+          var isArrayB = Array.isArray(b);
+          if (isArrayA && isArrayB) {
+            // 数组
+            return a.length === b.length && a.every(function(e, i) {
+              return looseEqual(e, b[i])
+            })
+          } else if(a instanceof Date && b instanceof Date) {
+            return a.getTime() === b.getTime()
+          } else if (!isArrayA && !isArrayB) {
+            var keysA = Object.keys(a)
+            var keysB = Object.keys(b)
+            return keysA.length === keysB.length && keysA.every(function(key, i) {
+              return looseEqual(a[key], b[key])
+            })
+          } else {
+            return false
+          }
+        } catch(e) {
+          return false
+        }
+      } else if (!isObjectA && !isObjectB) {
+        return String(a) === String(b)
+      } else {
+        return false
+      }
+    }
+
+    const a = {a: 1, b: [1, 2], c: [{a: 1}], d: new Date('20110909')}
+    const b = {a: 1, b: [1, 2], c: [{a: 1}], d: new Date('20110909')}
+    console.log('looseEqual(a, b)', looseEqual(a, b)) // false
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>polyfillBind</title>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+</head>
+<body>
+  <script>
+    function toArray (list, start) {
+      start = start || 0;
+      var i = list.length - start;
+      var ret = new Array(i);
+      while (i--) {
+        ret[i] = list[i + start];
+      }
+      return ret
+    }
+    function polyfillBind (fn, ctx) {
+      function boundFn (a) {
+        console.log('a', a)
+        const l = arguments.length
+        console.log('arguments', arguments)
+        console.log('arguments', toArray(arguments))
+        return l
+          ? l > 1
+            ? fn.apply(ctx, arguments)
+            : fn.call(ctx, a)
+          : fn.call(ctx)
+      }
+    
+      boundFn._length = fn.length
+      return boundFn
+    }
+
+    const obj = {
+      a: 1
+    }
+
+    function foo () {
+      console.log('this.a', this.a)
+    }
+
+    polyfillBind(foo, obj)(111)
+
+    
+    function extend (to, _from) {
+      for (var key in _from) {
+        to[key] = _from[key];
+      }
+      return to
+    }
+    const to = {
+      a: 11
+    }
+    const from = {
+      b: 22
+    }
+    // extend(to, from)
+    // console.log('to', to)
+    function toObject() {
+      var res = {};
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i]) {
+          extend(res, arr[i]);
+        }
+      }
+      return res
+    }
+    const arr = [{key1: 1}, {key2: 2}, {key: 1}]
+    const _toO = toObject(arr)
+    console.log('_toO', _toO)
+  </script>
+</body>
+</html>
