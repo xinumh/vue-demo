@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父子通信</title></title>
+  <script src="./js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>总数： {{ total }}</p>
+    <child @increase="handleGetTotal"></child>
+  </div>
+  <script>
+    Vue.component('child', {
+      template: `<button @click="handleIncrease">+1</button>`,
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        handleIncrease() {
+          this.count ++
+          this.$emit('increase', this.count)
+        }
+      }
+    })
+    new Vue({
+      el: '#app',
+      data: {
+        total: 0
+      },
+      methods: {
+        handleGetTotal(total) {
+          this.total = total
+        }
+      }
+    })
+  </script>
+</body>
+</html>
